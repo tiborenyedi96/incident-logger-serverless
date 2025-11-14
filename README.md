@@ -1,0 +1,2 @@
+# incident-logger-serverless
+The serverless implementation of my incident logger project
