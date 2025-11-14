@@ -1,2 +1,2 @@
 # incident-logger-serverless
-The serverless implementation of my incident logger project
+The serverless implementation of my incident logger project... work in progress...
