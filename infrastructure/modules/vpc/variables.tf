@@ -4,16 +4,15 @@ variable "cidr_block" {
 }
 
 variable "name" {
-  type    = string
-  default = "incident-logger"
+  type = string
 }
 
-variable "private_a"{
-  type = string
+variable "private_a" {
+  type    = string
   default = "10.0.0.0/24"
 }
 
-variable "private_b"{
-  type = string
+variable "private_b" {
+  type    = string
   default = "10.0.1.0/24"
 }
