@@ -17,7 +17,6 @@ resource "aws_rds_cluster" "this" {
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count               = 1
   availability_zone   = "eu-central-1a"
   publicly_accessible = false
   identifier          = "${var.name}-rds-cluster-instance"
