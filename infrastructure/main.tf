@@ -58,7 +58,7 @@ module "vpc_endpoints" {
 
 
 //Security group rule definitions
-resource "aws_security_group_rule" "allow_lambda_to_rds_proxy" {
+resource "aws_security_group_rule" "rds_proxy_ingress_from_lambda" {
   type                     = "ingress"
   from_port                = 3306
   to_port                  = 3306
@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "allow_lambda_to_rds_proxy" {
   source_security_group_id = module.lambda.lambda_security_group_id
 }
 
-resource "aws_security_group_rule" "allow_rds_proxy_to_rds" {
+resource "aws_security_group_rule" "rds_ingress_from_rds_proxy" {
   type                     = "ingress"
   from_port                = 3306
   to_port                  = 3306
@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "lambda_egress_to_rds_proxy" {
   source_security_group_id = module.rds_proxy.rds_proxy_security_group_id
 }
 
-resource "aws_security_group_rule" "lambda_https_to_vpce" {
+resource "aws_security_group_rule" "lambda_egress_to_vpce" {
   type                     = "egress"
   from_port                = 443
   to_port                  = 443
