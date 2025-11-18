@@ -27,7 +27,7 @@ resource "aws_iam_role" "lambda_role" {
 
 resource "aws_iam_policy" "lambda_policy" {
   name        = "${var.name}-lambda-policy"
-  description = "Lambda policy for Secrets Manager, RDS Proxy, and Logs"
+  description = "Lambda policy for Secrets Manager and RDS proxy"
 
   policy = jsonencode({
   Version = "2012-10-17"
@@ -35,45 +35,9 @@ resource "aws_iam_policy" "lambda_policy" {
     {
       Effect   = "Allow"
       Action   = [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ]
-      Resource = "*"
-    },
-    {
-      Effect   = "Allow"
-      Action   = [
         "secretsmanager:GetSecretValue",
-        "secretsmanager:DescribeSecret"
       ]
       Resource = var.rds_secretsmanager_secret_arn
-    },
-    {
-      Effect   = "Allow"
-      Action   = ["kms:Decrypt"]
-      Resource = "*"
-    },
-    {
-      Effect = "Allow"
-      Action = [
-        "rds-db:connect"
-      ]
-      Resource = "*"
-    },
-    {
-      Effect = "Allow"
-      Action = [
-        "ec2:CreateNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:DeleteNetworkInterface",
-        "ec2:AssignPrivateIpAddresses",
-        "ec2:UnassignPrivateIpAddresses",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeVpcs"
-      ]
-      Resource = "*"
     }
   ]
 })
@@ -84,12 +48,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
-
-
+//GET function
 resource "aws_lambda_function" "lambda_get_incidents" {
     filename      = "${path.module}/get-function.zip"
     function_name = "${var.name}-lambda-get-incidents"
@@ -117,6 +76,7 @@ resource "aws_lambda_function" "lambda_get_incidents" {
   }
 }
 
+//POST function
 resource "aws_lambda_function" "lambda_post_incident" {
     filename      = "${path.module}/post-function.zip"
     function_name = "${var.name}-lambda-post-incident"
