@@ -57,7 +57,7 @@ module "vpc_endpoints" {
 }
 
 
-//Security group rule definitions
+//SG rules
 resource "aws_security_group_rule" "rds_proxy_ingress_from_lambda" {
   type                     = "ingress"
   from_port                = 3306
