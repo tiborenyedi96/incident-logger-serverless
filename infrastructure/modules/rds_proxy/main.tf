@@ -41,24 +41,8 @@ resource "aws_iam_policy" "rds_proxy_policy" {
         Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
         ]
         Resource = var.rds_secretsmanager_secret_arn
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "kms:Decrypt"
-        ]
-        Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "rds-db:connect",
-          "rds:DescribeDBClusters"
-        ]
-        Resource = var.rds_cluster_arn
       }
     ]
   })
