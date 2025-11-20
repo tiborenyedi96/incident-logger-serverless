@@ -1,9 +1,9 @@
 resource "aws_security_group" "lambda_sg" {
-  name        = "${var.name}-lambda-sg"
-  vpc_id      = var.vpc_id
+  name   = "${var.name}-lambda-sg"
+  vpc_id = var.vpc_id
 
   tags = {
-    Name = "${var.name}-lambda-sg"
+    Name    = "${var.name}-lambda-sg"
     Project = var.name
   }
 }
@@ -30,17 +30,17 @@ resource "aws_iam_policy" "lambda_policy" {
   description = "Lambda policy for Secrets Manager and RDS proxy"
 
   policy = jsonencode({
-  Version = "2012-10-17"
-  Statement = [
-    {
-      Effect   = "Allow"
-      Action   = [
-        "secretsmanager:GetSecretValue",
-      ]
-      Resource = var.rds_secretsmanager_secret_arn
-    }
-  ]
-})
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+        ]
+        Resource = var.rds_secretsmanager_secret_arn
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
@@ -50,17 +50,17 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
 
 //GET function
 resource "aws_lambda_function" "lambda_get_incidents" {
-    filename      = "${path.module}/get-function.zip"
-    function_name = "${var.name}-lambda-get-incidents"
-    role          = aws_iam_role.lambda_role.arn
-    handler       = "index.lambda_handler"
-    runtime       = "python3.12"
-    memory_size   = 512
-    timeout       = 30
+  filename      = "${path.module}/get-function.zip"
+  function_name = "${var.name}-lambda-get-incidents"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "index.lambda_handler"
+  runtime       = "python3.12"
+  memory_size   = 512
+  timeout       = 30
 
   vpc_config {
-    subnet_ids                  = var.subnet_ids
-    security_group_ids          = [aws_security_group.lambda_sg.id]
+    subnet_ids         = var.subnet_ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
   }
 
   environment {
@@ -71,24 +71,24 @@ resource "aws_lambda_function" "lambda_get_incidents" {
   }
 
   tags = {
-  Name = "${var.name}-lambda-get-incidents"
-  Project = var.name
+    Name    = "${var.name}-lambda-get-incidents"
+    Project = var.name
   }
 }
 
 //POST function
 resource "aws_lambda_function" "lambda_post_incident" {
-    filename      = "${path.module}/post-function.zip"
-    function_name = "${var.name}-lambda-post-incident"
-    role          = aws_iam_role.lambda_role.arn
-    handler       = "index.lambda_handler"
-    runtime       = "python3.12"
-    memory_size   = 512
-    timeout       = 30
+  filename      = "${path.module}/post-function.zip"
+  function_name = "${var.name}-lambda-post-incident"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "index.lambda_handler"
+  runtime       = "python3.12"
+  memory_size   = 512
+  timeout       = 30
 
   vpc_config {
-    subnet_ids                  = var.subnet_ids
-    security_group_ids          = [aws_security_group.lambda_sg.id]
+    subnet_ids         = var.subnet_ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
   }
 
   environment {
@@ -97,9 +97,9 @@ resource "aws_lambda_function" "lambda_post_incident" {
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
     }
   }
-  
+
   tags = {
-  Name = "${var.name}-lambda-get-incidents"
-  Project = var.name
+    Name    = "${var.name}-lambda-get-incidents"
+    Project = var.name
   }
 }
