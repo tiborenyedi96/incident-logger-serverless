@@ -13,3 +13,7 @@ output "private_b_subnet_id" {
 output "private_rtb_id" {
   value = aws_route_table.private_rtb.id
 }
+
+output "cidr_block" {
+  value = aws_vpc.this.cidr_block
+}
