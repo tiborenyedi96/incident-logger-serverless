@@ -43,25 +43,12 @@ module "lambda" {
   rds_proxy_endpoint            = module.rds_proxy.proxy_endpoint
 }
 
-module "vpc_endpoints" {
-  source = "./modules/vpc_endpoints"
-
-  name   = "incident-logger"
-  vpc_id = module.vpc.vpc_id
-  subnet_ids = [
-    module.vpc.private_a_subnet_id,
-    module.vpc.private_b_subnet_id
-  ]
-  aws_region = "eu-central-1"
-}
-
 //Egress SG rules
 locals {
   project_sg_ids = [
     module.lambda.lambda_security_group_id,
     module.rds_proxy.rds_proxy_security_group_id,
-    module.rds.rds_sg_id,
-    module.vpc_endpoints.vpce_security_group_id
+    module.rds.rds_sg_id
   ]
 }
 
