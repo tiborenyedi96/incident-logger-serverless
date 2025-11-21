@@ -40,7 +40,9 @@ module "lambda" {
     module.vpc.private_b_subnet_id
   ]
 
-  rds_proxy_endpoint            = module.rds_proxy.proxy_endpoint
+  rds_proxy_endpoint = module.rds_proxy.proxy_endpoint
+  function_memory    = 256
+  function_timeout   = 30
 }
 
 //Egress SG rules
