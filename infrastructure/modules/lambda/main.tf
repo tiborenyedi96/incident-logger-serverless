@@ -63,7 +63,6 @@ resource "aws_lambda_function" "lambda_get_incidents" {
 
   environment {
     variables = {
-      SECRET_ARN        = var.rds_secretsmanager_secret_arn
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
     }
   }
@@ -91,7 +90,6 @@ resource "aws_lambda_function" "lambda_post_incident" {
 
   environment {
     variables = {
-      SECRET_ARN        = var.rds_secretsmanager_secret_arn
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
     }
   }
