@@ -40,7 +40,6 @@ module "lambda" {
     module.vpc.private_b_subnet_id
   ]
 
-  rds_secretsmanager_secret_arn = module.rds.rds_secretsmanager_secret_arn
   rds_proxy_endpoint            = module.rds_proxy.proxy_endpoint
 }
 
