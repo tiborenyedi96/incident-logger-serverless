@@ -30,13 +30,13 @@ resource "aws_iam_policy" "lambda_policy" {
   description = "Lambda policy for Secrets Manager and RDS proxy"
 
   policy = jsonencode({
-    Version: "2012-10-17",		 	 	 
-    Statement: [
-        {
-            Effect: "Allow",
-            Action: "rds-db:connect",
-            Resource: "*"
-        }
+    Version : "2012-10-17",
+    Statement : [
+      {
+        Effect : "Allow",
+        Action : "rds-db:connect",
+        Resource : "*"
+      }
     ]
   })
 }
@@ -53,8 +53,8 @@ resource "aws_lambda_function" "lambda_get_incidents" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.lambda_handler"
   runtime       = "python3.12"
-  memory_size   = 512
-  timeout       = 30
+  memory_size   = var.function_memory
+  timeout       = var.function_timeout
 
   vpc_config {
     subnet_ids         = var.subnet_ids
@@ -80,8 +80,8 @@ resource "aws_lambda_function" "lambda_post_incident" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.lambda_handler"
   runtime       = "python3.12"
-  memory_size   = 512
-  timeout       = 30
+  memory_size   = var.function_memory
+  timeout       = var.function_timeout
 
   vpc_config {
     subnet_ids         = var.subnet_ids

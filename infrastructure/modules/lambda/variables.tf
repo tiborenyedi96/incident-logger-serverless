@@ -13,3 +13,11 @@ variable "subnet_ids" {
 variable "rds_proxy_endpoint" {
   type = string
 }
+
+variable "function_memory" {
+  type = number
+}
+
+variable "function_timeout" {
+  type = number
+}
