@@ -30,15 +30,13 @@ resource "aws_iam_policy" "lambda_policy" {
   description = "Lambda policy for Secrets Manager and RDS proxy"
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "secretsmanager:GetSecretValue",
-        ]
-        Resource = var.rds_secretsmanager_secret_arn
-      }
+    Version: "2012-10-17",		 	 	 
+    Statement: [
+        {
+            Effect: "Allow",
+            Action: "rds-db:connect",
+            Resource: "*"
+        }
     ]
   })
 }
