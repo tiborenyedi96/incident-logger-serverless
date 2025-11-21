@@ -96,12 +96,3 @@ resource "aws_security_group_rule" "rds_ingress_from_rds_proxy" {
   security_group_id        = module.rds.rds_sg_id
   source_security_group_id = module.rds_proxy.rds_proxy_security_group_id
 }
-
-resource "aws_security_group_rule" "vpce_ingress_from_lambda" {
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = module.vpc_endpoints.vpce_security_group_id
-  source_security_group_id = module.lambda.lambda_security_group_id
-}
