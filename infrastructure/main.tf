@@ -45,6 +45,15 @@ module "lambda" {
   function_timeout   = 30
 }
 
+module "api_gateway" {
+  source                   = "./modules/api_gateway"
+  name                     = "incident-logger"
+  get_function_invoke_arn  = module.lambda.get_function_invoke_arn
+  post_function_invoke_arn = module.lambda.post_function_invoke_arn
+  get_function_arn         = module.lambda.get_function_arn
+  post_function_arn        = module.lambda.post_function_arn
+}
+
 //Egress SG rules
 locals {
   project_sg_ids = [
