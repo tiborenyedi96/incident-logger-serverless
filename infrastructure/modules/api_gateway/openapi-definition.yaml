@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: FastAPI
+  version: 1.0-oas3.1
+paths:
+  /incidents:
+    get:
+      summary: Read Incidents
+      operationId: read_incidents_incidents_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Incident'
+                type: array
+                title: Response Read Incidents Incidents Get
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-lambda-get-incidents/invocations
+    post:
+      summary: Create Incident
+      operationId: create_incident_incidents_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-amazon-apigateway-integration:
+        payloadFormatVersion: "2.0"
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-lambda-post-incident/invocations
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Incident:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        severity:
+          $ref: '#/components/schemas/Severity'
+        status:
+          $ref: '#/components/schemas/Status'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - severity
+        - status
+        - created_at
+      title: Incident
+    IncidentCreate:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        severity:
+          $ref: '#/components/schemas/Severity'
+      type: object
+      required:
+        - title
+        - description
+        - severity
+      title: IncidentCreate
+    Severity:
+      type: string
+      enum:
+        - LOW
+        - MEDIUM
+        - HIGH
+      title: Severity
+    Status:
+      type: string
+      enum:
+        - OPEN
+        - IN_PROGRESS
+        - RESOLVED
+      title: Status
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
