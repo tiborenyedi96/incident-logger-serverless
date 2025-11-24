@@ -54,6 +54,11 @@ module "api_gateway" {
   post_function_arn        = module.lambda.post_function_arn
 }
 
+module "s3" {
+  source = "./modules/s3"
+  name   = "incident-logger"
+}
+
 //Egress SG rules
 locals {
   project_sg_ids = [
