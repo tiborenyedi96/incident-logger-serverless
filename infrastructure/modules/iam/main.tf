@@ -24,6 +24,9 @@ resource "aws_iam_role" "github_actions_terraform_role" {
           StringEquals = {
             "token.actions.githubusercontent.com:sub" : "repo:tiborenyedi96/incident-logger-serverless:pull_request",
             "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
+          },
+          StringLike = {
+            "token.actions.githubusercontent.com:ref" : "refs/pull/*/merge"
           }
         }
       }
@@ -33,14 +36,56 @@ resource "aws_iam_role" "github_actions_terraform_role" {
 
 resource "aws_iam_policy" "github_actions_terraform_policy" {
   name        = "${var.name}-github-actions-terraform-policy"
-  description = "Policy for Github actions access"
+  description = "Least privilege Terraform PLAN policy for GitHub Actions"
 
   policy = jsonencode({
     Version : "2012-10-17",
     Statement : [
       {
+        Sid : "TFStateS3Access",
         Effect : "Allow",
-        Action : "*",
+        Action : [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:ListBucket"
+        ],
+        Resource : [
+          "arn:aws:s3:::incident-logger-tf-state",
+          "arn:aws:s3:::incident-logger-tf-state/*"
+        ]
+      },
+      {
+        Sid : "TFStateDynamoDBLockAccess",
+        Effect : "Allow",
+        Action : [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:DescribeTable"
+        ],
+        Resource : "arn:aws:dynamodb:eu-central-1:299097238534:table/incident-logger-tf-lock"
+      },
+      {
+        Sid : "ReadOnlyForPlan",
+        Effect : "Allow",
+        Action : [
+          "ec2:Describe*",
+          "rds:Describe*",
+          "iam:Get*",
+          "iam:List*",
+          "lambda:Get*",
+          "lambda:List*",
+          "elasticloadbalancing:Describe*",
+          "apigateway:GET",
+          "apigatewayv2:Get*",
+          "apigatewayv2:List*",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:ListSecrets",
+          "s3:ListAllMyBuckets",
+          "cloudfront:Get*",
+          "cloudfront:List*"
+        ],
         Resource : "*"
       }
     ]
