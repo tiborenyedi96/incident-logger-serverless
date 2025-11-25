@@ -1,6 +1,4 @@
 name: Infrastructure plan
-env:
-  ACTIONS_STEP_DEBUG: true
 permissions:
     id-token: write
     pull-requests: write
