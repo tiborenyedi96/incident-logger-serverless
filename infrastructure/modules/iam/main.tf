@@ -94,18 +94,12 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
           "secretsmanager:GetResourcePolicy",
           "secretsmanager:ListSecrets",
           "secretsmanager:DescribeSecret",
-          "s3:ListAllMyBuckets",
-          "s3:GetBucketPublicAccessBlock",
-          "s3:GetBucketAcl",
-          "s3:GetBucketPolicy",
-          "s3:GetBucketLocation",
-          "s3:GetBucketCORS",
-          "s3:GetBucketWebsite",
-          "s3:GetBucketVersioning",
-          "s3:GetAccelerateConfiguration",
-          "s3:GetBucketRequestPayment",
           "cloudfront:Get*",
-          "cloudfront:List*"
+          "cloudfront:List*",
+          "s3:GetBucket*",
+          "s3:GetObject*",
+          "s3:ListBucket",
+          "s3:ListAllMyBuckets"
         ]
         Resource : "*"
       }
