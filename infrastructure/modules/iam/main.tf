@@ -72,6 +72,7 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
         Action : [
           "ec2:Describe*",
           "rds:Describe*",
+          "rds:ListTagsForResource",
           "iam:Get*",
           "iam:List*",
           "lambda:Get*",
@@ -82,7 +83,12 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
           "apigatewayv2:List*",
           "secretsmanager:GetSecretValue",
           "secretsmanager:ListSecrets",
+          "secretsmanager:DescribeSecret",
           "s3:ListAllMyBuckets",
+          "s3:GetBucketPublicAccessBlock",
+          "s3:GetBucketAcl",
+          "s3:GetBucketPolicy",
+          "s3:GetBucketLocation",
           "cloudfront:Get*",
           "cloudfront:List*"
         ],
