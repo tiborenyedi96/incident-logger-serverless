@@ -26,7 +26,7 @@ resource "aws_iam_role" "github_actions_terraform_role" {
             "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
           },
           StringLike = {
-            "token.actions.githubusercontent.com:ref" : "refs/pull/*/merge"
+            "token.actions.githubusercontent.com:ref" : "refs/pull/*"
           }
         }
       }
