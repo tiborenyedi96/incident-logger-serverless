@@ -67,10 +67,8 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
         Sid : "FrontendBucketMetadata",
         Effect : "Allow",
         Action : [
-          "s3:GetBucket*",
-          "s3:GetAccelerateConfiguration",
-          "s3:GetEncryptionConfiguration",
-          "s3:GetIntelligentTieringConfiguration"
+          "s3:Get*",
+          "s3:List*"
         ],
         Resource : "arn:aws:s3:::incident-logger-frontend"
       },
