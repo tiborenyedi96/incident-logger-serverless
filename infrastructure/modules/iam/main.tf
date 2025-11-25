@@ -25,7 +25,10 @@ resource "aws_iam_role" "github_actions_terraform_role" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:pull_request:*"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:tiborenyedi96/incident-logger-serverless:pull_request:*",
+              "repo:tiborenyedi96/incident-logger-serverless:pull-request:*"
+            ]
           }
         }
       }
