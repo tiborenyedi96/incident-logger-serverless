@@ -52,7 +52,9 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
         ],
         Resource : [
           "arn:aws:s3:::incident-logger-tf-state",
-          "arn:aws:s3:::incident-logger-tf-state/*"
+          "arn:aws:s3:::incident-logger-tf-state/*",
+          "arn:aws:s3:::incident-logger-frontend",
+          "arn:aws:s3:::incident-logger-frontend/*"
         ]
       },
       {
