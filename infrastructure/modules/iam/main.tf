@@ -36,41 +36,48 @@ resource "aws_iam_role" "github_actions_terraform_role" {
 
 resource "aws_iam_policy" "github_actions_terraform_policy" {
   name        = "${var.name}-github-actions-terraform-policy"
-  description = "Least privilege Terraform PLAN policy for GitHub Actions"
+  description = "Terraform PLAN policy for GitHub Actions"
 
   policy = jsonencode({
-    Version : "2012-10-17",
+    Version : "2012-10-17"
     Statement : [
+
       {
-        Sid : "TFStateS3Access",
-        Effect : "Allow",
+        Sid : "TFStateS3Access"
+        Effect : "Allow"
         Action : [
           "s3:GetObject",
           "s3:PutObject",
           "s3:DeleteObject",
           "s3:ListBucket"
-        ],
+        ]
         Resource : [
           "arn:aws:s3:::incident-logger-tf-state",
-          "arn:aws:s3:::incident-logger-tf-state/*",
-          "arn:aws:s3:::incident-logger-frontend",
-          "arn:aws:s3:::incident-logger-frontend/*"
+          "arn:aws:s3:::incident-logger-tf-state/*"
         ]
       },
       {
-        Sid : "TFStateDynamoDBLockAccess",
-        Effect : "Allow",
+        Sid : "FrontendBucketListAccess"
+        Effect : "Allow"
+        Action : [
+          "s3:ListBucket"
+        ]
+        Resource : "arn:aws:s3:::incident-logger-frontend"
+      },
+      {
+        Sid : "TFStateDynamoDBLockAccess"
+        Effect : "Allow"
         Action : [
           "dynamodb:GetItem",
           "dynamodb:PutItem",
           "dynamodb:DeleteItem",
           "dynamodb:DescribeTable"
-        ],
+        ]
         Resource : "arn:aws:dynamodb:eu-central-1:299097238534:table/incident-logger-tf-lock"
       },
       {
-        Sid : "ReadOnlyForPlan",
-        Effect : "Allow",
+        Sid : "ReadOnlyForPlan"
+        Effect : "Allow"
         Action : [
           "ec2:Describe*",
           "rds:Describe*",
@@ -94,7 +101,7 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
           "s3:GetBucketLocation",
           "cloudfront:Get*",
           "cloudfront:List*"
-        ],
+        ]
         Resource : "*"
       }
     ]
