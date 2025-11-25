@@ -100,6 +100,7 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
           "s3:GetBucketPolicy",
           "s3:GetBucketLocation",
           "s3:GetBucketCORS",
+          "s3:GetBucketWebsite",
           "cloudfront:Get*",
           "cloudfront:List*"
         ]
