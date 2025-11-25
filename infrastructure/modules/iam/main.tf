@@ -56,14 +56,6 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
         ]
       },
       {
-        Sid : "FrontendBucketListOnly",
-        Effect : "Allow",
-        Action : [
-          "s3:ListBucket"
-        ],
-        Resource : "arn:aws:s3:::incident-logger-frontend"
-      },
-      {
         Sid : "FrontendBucketMetadata",
         Effect : "Allow",
         Action : [
