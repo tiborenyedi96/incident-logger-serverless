@@ -82,6 +82,7 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
           "apigatewayv2:Get*",
           "apigatewayv2:List*",
           "secretsmanager:GetSecretValue",
+          "secretsmanager:GetResourcePolicy",
           "secretsmanager:ListSecrets",
           "secretsmanager:DescribeSecret",
           "s3:ListAllMyBuckets",
