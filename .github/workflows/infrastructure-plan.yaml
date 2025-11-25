@@ -1,0 +1,41 @@
+name: Infrastructure plan
+permissions:
+    id-token: write
+    contents: read
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+        paths:
+            - "infrastructure/**"
+jobs:
+    infrastructure_plan:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v5.1.0
+              with:
+                aws-region: eu-central-1
+                role-to-assume: arn:aws:iam::299097238534:role/incident-logger-github-actions-terraform-role
+                role-session-name: AWSTerraformSession
+
+            - name: Terraform installation
+              uses: hashicorp/setup-terraform@v3
+              with:
+                terraform_version: "1.13.5"
+
+            - name: Running terraform commands
+              working-directory: infrastructure
+              run: |
+                terraform init
+                terraform fmt -recursive -check
+                terraform validate
+                terraform plan -out=../terraform-plan
+            
+            - name: Uploading plan artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: terraform-plan
+                path: terraform-plan
