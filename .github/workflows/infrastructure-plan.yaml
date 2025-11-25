@@ -33,9 +33,3 @@ jobs:
                 terraform fmt -recursive -check
                 terraform validate
                 terraform plan -out=../terraform-plan
-            
-            - name: Uploading plan artifact
-              uses: actions/upload-artifact@v4
-              with:
-                name: terraform-plan
-                path: terraform-plan
