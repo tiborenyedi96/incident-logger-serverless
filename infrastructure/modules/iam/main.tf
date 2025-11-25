@@ -12,25 +12,25 @@ resource "aws_iam_role" "github_actions_terraform_role" {
   name = "${var.name}-github-actions-terraform-role"
 
   assume_role_policy = jsonencode({
-  Version = "2012-10-17"
-  Statement = [
-    {
-      Effect = "Allow"
-      Principal = {
-        Federated = aws_iam_openid_connect_provider.github_actions_oidc.arn
-      }
-      Action = "sts:AssumeRoleWithWebIdentity"
-      Condition = {
-        StringEquals = {
-          "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions_oidc.arn
         }
-        StringLike = {
-          "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:pull_request:*"
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:pull_request:*"
+          }
         }
       }
-    }
-  ]
-})
+    ]
+  })
 }
 
 resource "aws_iam_policy" "github_actions_terraform_policy" {
