@@ -1,0 +1,36 @@
+name: Infrastructure apply
+permissions:
+    id-token: write
+    contents: write
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "infrastructure/**"
+jobs:
+    infrastructure_apply:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v5.1.0
+              with:
+                aws-region: eu-central-1
+                role-to-assume: arn:aws:iam::299097238534:role/incident-logger-github-actions-terraform-infra-apply-role
+                role-session-name: AWSTerraformSession
+
+            - name: Terraform installation
+              uses: hashicorp/setup-terraform@v3
+              with:
+                terraform_version: "1.13.5"
+            
+            - name: Running terraform commands
+              working-directory: infrastructure
+              run: |
+                terraform init
+                terraform fmt -recursive -check
+                terraform validate
+                terraform apply -auto-approve
