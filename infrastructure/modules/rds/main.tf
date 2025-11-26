@@ -9,6 +9,7 @@ resource "aws_rds_cluster" "this" {
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   storage_encrypted       = true
   backup_retention_period = 5
+  skip_final_snapshot = true
 
   serverlessv2_scaling_configuration {
     min_capacity = 0.5
