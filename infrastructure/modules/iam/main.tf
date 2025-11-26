@@ -12,6 +12,7 @@ resource "aws_iam_openid_connect_provider" "github_actions_oidc" {
 }
 
 #Github actions role and policy for infra planning pipeline
+
 resource "aws_iam_role" "github_actions_terraform_infra_plan_role" {
   name = "${var.name}-github-actions-terraform-infra-plan-role"
 
@@ -109,3 +110,154 @@ resource "aws_iam_role_policy_attachment" "github_actions_terraform_infra_plan_p
 }
 
 #Github actions role and policy for infra applying pipeline
+
+resource "aws_iam_role" "github_actions_terraform_infra_apply_role" {
+  name = "${var.name}-github-actions-terraform-infra-apply-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions_oidc.arn
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
+  name        = "${var.name}-github-actions-terraform-infra-apply-policy"
+  description = "Terraform infra apply policy for GitHub Actions"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid : "TFStateS3Access",
+        Effect : "Allow",
+        Action : [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:ListBucket"
+        ],
+        Resource : [
+          "arn:aws:s3:::incident-logger-tf-state",
+          "arn:aws:s3:::incident-logger-tf-state/*"
+        ]
+      },
+      {
+        Sid : "TFStateDynamoDBLockAccess",
+        Effect : "Allow",
+        Action : [
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DescribeTable"
+        ],
+        Resource : "arn:aws:dynamodb:eu-central-1:299097238534:table/incident-logger-tf-lock"
+      },
+      {
+        Sid : "S3CRUD",
+        Effect : "Allow",
+        Action : [
+          "s3:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "LambdaCRUD",
+        Effect : "Allow",
+        Action : [
+          "lambda:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "APIGatewayCRUD",
+        Effect : "Allow",
+        Action : [
+          "apigateway:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "IAMLimitedCRUDForTerraform",
+        Effect : "Allow",
+        Action : [
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:UpdateRole",
+          "iam:CreatePolicy",
+          "iam:DeletePolicy",
+          "iam:CreatePolicyVersion",
+          "iam:DeletePolicyVersion",
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PutRolePolicy",
+          "iam:DeleteRolePolicy",
+          "iam:TagRole",
+          "iam:UntagRole",
+          "iam:Get*",
+          "iam:List*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "CloudFrontCRUD",
+        Effect : "Allow",
+        Action : [
+          "cloudfront:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "DynamoDBCRUD",
+        Effect : "Allow",
+        Action : [
+          "dynamodb:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "EC2CRUD",
+        Effect : "Allow",
+        Action : [
+          "ec2:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "RDSCRUD",
+        Effect : "Allow",
+        Action : [
+          "rds:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "SecretsManagerCRUD",
+        Effect : "Allow",
+        Action : [
+          "secretsmanager:*"
+        ],
+        Resource : "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "github_actions_terraform_infra_apply_policy_attachment" {
+  role       = aws_iam_role.github_actions_terraform_infra_apply_role.name
+  policy_arn = aws_iam_policy.github_actions_terraform_infra_apply_policy.arn
+}
