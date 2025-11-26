@@ -11,8 +11,9 @@ resource "aws_iam_openid_connect_provider" "github_actions_oidc" {
   ]
 }
 
-resource "aws_iam_role" "github_actions_terraform_role" {
-  name = "${var.name}-github-actions-terraform-role"
+#Github actions role and policy for infra planning pipeline
+resource "aws_iam_role" "github_actions_terraform_infra_plan_role" {
+  name = "${var.name}-github-actions-terraform-infra-plan-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -34,9 +35,9 @@ resource "aws_iam_role" "github_actions_terraform_role" {
   })
 }
 
-resource "aws_iam_policy" "github_actions_terraform_policy" {
-  name        = "${var.name}-github-actions-terraform-policy"
-  description = "Terraform PLAN policy for GitHub Actions"
+resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
+  name        = "${var.name}-github-actions-terraform-infra-plan-policy"
+  description = "Terraform infra plan policy for GitHub Actions"
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -104,7 +105,9 @@ resource "aws_iam_policy" "github_actions_terraform_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "github_actions_terraform_policy_attachment" {
-  role       = aws_iam_role.github_actions_terraform_role.name
-  policy_arn = aws_iam_policy.github_actions_terraform_policy.arn
+resource "aws_iam_role_policy_attachment" "github_actions_terraform_infra_plan_policy_attachment" {
+  role       = aws_iam_role.github_actions_terraform_infra_plan_role.name
+  policy_arn = aws_iam_policy.github_actions_terraform_infra_plan_policy.arn
 }
+
+#Github actions role and policy for infra applying pipeline
