@@ -89,6 +89,8 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
           "lambda:List*",
           "elasticloadbalancing:Describe*",
           "apigateway:GET",
+          "apigatewayv2:Get*",
+          "apigatewayv2:List*",
           "secretsmanager:GetSecretValue",
           "secretsmanager:GetResourcePolicy",
           "secretsmanager:ListSecrets",
