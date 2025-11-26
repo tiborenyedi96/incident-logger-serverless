@@ -10,7 +10,6 @@ resource "aws_rds_cluster" "this" {
   storage_encrypted       = true
   backup_retention_period = 5
   skip_final_snapshot = true
-  iam_database_authentication_enabled = false
 
   serverlessv2_scaling_configuration {
     min_capacity = 0.5
