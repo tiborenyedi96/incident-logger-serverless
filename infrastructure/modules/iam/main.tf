@@ -311,3 +311,8 @@ resource "aws_iam_policy" "github_actions_frontend_build_policy" {
     ]
   })
 }
+
+resource "aws_iam_role_policy_attachment" "github_actions_frontend_build_policy_attachment" {
+  role       = aws_iam_role.github_actions_frontend_build_role.name
+  policy_arn = aws_iam_policy.github_actions_frontend_build_policy.arn
+}
