@@ -261,3 +261,53 @@ resource "aws_iam_role_policy_attachment" "github_actions_terraform_infra_apply_
   role       = aws_iam_role.github_actions_terraform_infra_apply_role.name
   policy_arn = aws_iam_policy.github_actions_terraform_infra_apply_policy.arn
 }
+
+#Github actions role and policy for building and pushing frontend changes to S3
+
+resource "aws_iam_role" "github_actions_frontend_build_role" {
+  name = "${var.name}-github-actions-frontend-build-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions_oidc.arn
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main",
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "github_actions_frontend_build_policy" {
+  name        = "${var.name}-github-actions-frontend-build-policy"
+  description = "Frontend build/push policy for GitHub Actions"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid : "ActionsBucketAccess",
+        Effect : "Allow",
+        Action : [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:ListBucket"
+        ],
+        Resource : [
+          "arn:aws:s3:::incident-logger-frontend",
+          "arn:aws:s3:::incident-logger-frontend/*"
+        ]
+      }
+    ]
+  })
+}
