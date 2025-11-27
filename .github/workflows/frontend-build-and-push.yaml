@@ -1,0 +1,45 @@
+name: Frontend build and push
+permissions:
+    id-token: write
+    contents: write
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "frontend/**"
+    workflow_dispatch:
+jobs:
+    frontend_build_and_push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
+
+            - name: Node installation
+              uses: actions/setup-node@v6
+              with:
+                node-version: 24
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v5.1.0
+              with:
+                aws-region: eu-central-1
+                role-to-assume: arn:aws:iam::299097238534:role/incident-logger-github-actions-frontend-build-role
+                role-session-name: AWSFrontendBuildSession
+                    
+            - name: Building frontend
+              working-directory: frontend
+              run: |
+                npm ci
+                npm run build
+
+            - name: Uploading artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: frontend-build
+                path: frontend/dist
+                if-no-files-found: error
+                
+            - name: Upload dist to S3
+              run: aws s3 sync frontend/dist s3://incident-logger-frontend --delete
