@@ -64,6 +64,13 @@ module "s3" {
   name   = "incident-logger"
 }
 
+module "cloudfront" {
+  source     = "./modules/cloudfront"
+  name       = "incident-logger"
+  bucket_arn = module.s3.bucket_arn
+  bucket_id  = module.s3.bucket_id
+}
+
 //Egress SG rules
 locals {
   project_sg_ids = [
