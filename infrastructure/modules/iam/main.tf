@@ -124,7 +124,7 @@ resource "aws_iam_role" "github_actions_terraform_infra_apply_role" {
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
           StringEquals = {
-            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main",
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
         }
