@@ -17,3 +17,7 @@ variable "get_function_arn" {
 variable "post_function_arn" {
   type = string
 }
+
+variable "cloudfront_domain" {
+  type = string
+}
