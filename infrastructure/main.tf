@@ -57,6 +57,7 @@ module "api_gateway" {
   post_function_invoke_arn = module.lambda.post_function_invoke_arn
   get_function_arn         = module.lambda.get_function_arn
   post_function_arn        = module.lambda.post_function_arn
+  cloudfront_domain        = module.cloudfront.cloudfront_domain
 }
 
 module "s3" {
