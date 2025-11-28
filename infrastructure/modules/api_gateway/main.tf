@@ -2,6 +2,12 @@ resource "aws_apigatewayv2_api" "this" {
   name          = "${var.name}-API-GW"
   protocol_type = "HTTP"
   body          = file("${path.module}/openapi-definition.yaml")
+
+  cors_configuration {
+    allow_methods = ["POST", "GET", "OPTIONS"]
+    allow_headers = ["content-type"]
+    max_age       = 3600
+  }
 }
 
 resource "aws_lambda_permission" "allow_apigw_get" {
