@@ -49,7 +49,8 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
         Action : [
           "s3:GetObject",
           "s3:PutObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:DeleteObject"
         ],
         Resource : [
           "arn:aws:s3:::incident-logger-tf-state",
@@ -124,7 +125,7 @@ resource "aws_iam_role" "github_actions_terraform_infra_apply_role" {
         Action = "sts:AssumeRoleWithWebIdentity",
         Condition = {
           StringEquals = {
-            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main"
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main",
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
         }
