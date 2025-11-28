@@ -6,6 +6,7 @@ resource "aws_apigatewayv2_api" "this" {
   cors_configuration {
     allow_methods = ["POST", "GET", "OPTIONS"]
     allow_headers = ["content-type"]
+    allow_origins = [var.cloudfront_domain]
     max_age       = 3600
   }
 }
