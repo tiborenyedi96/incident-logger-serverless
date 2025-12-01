@@ -95,7 +95,7 @@ resource "aws_lambda_function" "lambda_post_incident" {
   }
 
   tags = {
-    Name    = "${var.name}-lambda-get-incidents"
+    Name    = "${var.name}-lambda-post-incidents"
     Project = var.name
   }
 }
