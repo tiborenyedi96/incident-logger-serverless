@@ -96,7 +96,12 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
           "secretsmanager:DescribeSecret",
           "s3:ListAllMyBuckets",
           "cloudfront:Get*",
-          "cloudfront:List*"
+          "cloudfront:List*",
+          "ecr:Describe*",
+          "ecr:Get*",
+          "ecr:List*",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability"
         ],
         Resource : "*"
       }
@@ -192,7 +197,7 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
         Resource : "*"
       },
       {
-        Sid : "IAMLimitedCRUDForTerraform",
+        Sid : "IAMCRUD",
         Effect : "Allow",
         Action : [
           "iam:CreateRole",
@@ -250,6 +255,14 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
         Effect : "Allow",
         Action : [
           "secretsmanager:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "ECRCRUD",
+        Effect : "Allow",
+        Action : [
+          "ecr:*"
         ],
         Resource : "*"
       }
