@@ -12,28 +12,6 @@ resource "aws_ecr_repository" "get_repository" {
   }
 }
 
-resource "aws_ecr_repository_policy" "get_repository_policy" {
-  repository = aws_ecr_repository.get_repository.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "LambdaECRImageRetrievalPolicy"
-        Effect = "Allow"
-        Principal = {
-          AWS = var.lambda_role_arn
-        }
-        Action = [
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "ecr:BatchCheckLayerAvailability"
-        ]
-      }
-    ]
-  })
-}
-
 resource "aws_ecr_repository" "post_repository" {
   name                 = "${var.name}-lambda-post-image-repository"
   image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
