@@ -17,3 +17,7 @@ output "get_function_arn" {
 output "post_function_arn" {
   value = aws_lambda_function.lambda_post_incident.arn
 }
+
+output "lambda_role_arn" {
+  value = aws_iam_role.lambda_role.arn
+}
