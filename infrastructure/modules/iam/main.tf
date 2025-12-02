@@ -375,9 +375,9 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_ecr_pull_only" {
+resource "aws_iam_role_policy_attachment" "lambda_ecr_power_user" {
   role       = aws_iam_role.github_actions_ecr_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
 
 resource "aws_iam_role_policy_attachment" "github_actions_ecr_policy_attachment" {
