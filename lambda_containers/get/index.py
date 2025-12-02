@@ -31,9 +31,7 @@ def lambda_handler(event, context):
         logger.info("Generating IAM authentication token...")
         region = os.environ["AWS_REGION"]
 
-        # A DB felhasználó neve ugyanaz mint amit eddig a Secret Managerben tároltál
-        # → a proxy továbbra is azt fogja használni passworddel
-        db_user = "appuser"  # <- Tedd ide a korábbi creds['username'] értékét
+        db_user = "appuser"
 
         token = rds.generate_db_auth_token(
             DBHostname=db_proxy_endpoint,
@@ -46,7 +44,7 @@ def lambda_handler(event, context):
         logger.error("Failed to generate IAM auth token: %s", e, exc_info=True)
         raise
 
-    # Step 3: Connect using IAM token (ÚJ)
+    #Connect to db proxy using IAM token
     try:
         logger.info("Attempting DB connection with IAM auth...")
         conn = pymysql.connect(
@@ -62,7 +60,7 @@ def lambda_handler(event, context):
         logger.error("Failed to connect to DB using IAM auth: %s", e, exc_info=True)
         raise
 
-    # Step 4: Query execution (változatlan)
+    # Executing query
     try:
         with conn.cursor() as cursor:
             logger.info("Querying incidents...")
