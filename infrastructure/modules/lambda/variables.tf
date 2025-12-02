@@ -18,6 +18,10 @@ variable "rds_proxy_endpoint" {
   type = string
 }
 
+variable "repository_url" {
+  type = string
+}
+
 variable "function_memory" {
   type = number
 }
