@@ -329,3 +329,72 @@ resource "aws_iam_role_policy_attachment" "github_actions_frontend_build_policy_
   role       = aws_iam_role.github_actions_frontend_build_role.name
   policy_arn = aws_iam_policy.github_actions_frontend_build_policy.arn
 }
+
+#Github actions role and policy for building and pushing lambda containers to ECR
+
+resource "aws_iam_role" "github_actions_ecr_role" {
+  name = "${var.name}-github-actions-ecr-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions_oidc.arn
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:sub" = "repo:tiborenyedi96/incident-logger-serverless:ref:refs/heads/main",
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "github_actions_ecr_policy" {
+  name        = "${var.name}-github-actions-ecr-policy"
+  description = "Policy for GitHub Actions to push to ECR and update Lambda functions"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "ecr:GetAuthorizationToken"
+        ],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:PutImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:BatchGetImage"
+        ],
+        Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "lambda:UpdateFunctionCode",
+          "lambda:GetFunction"
+        ],
+        Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "github_actions_ecr_policy_attachment" {
+  role       = aws_iam_role.github_actions_ecr_role.name
+  policy_arn = aws_iam_policy.github_actions_ecr_policy.arn
+}
