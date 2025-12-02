@@ -3,27 +3,32 @@ import boto3
 import pymysql
 import os
 import socket
+import logging
+
+# Configuring logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 rds = boto3.client("rds")
 
 def lambda_handler(event, context):
-    print("Lambda execution started")
+    logger.info("Lambda execution started")
 
     db_proxy_endpoint = os.environ["DB_PROXY_ENDPOINT"]
 
-    print(f"DB_PROXY_ENDPOINT: {db_proxy_endpoint}")
+    logger.info("DB_PROXY_ENDPOINT: %s", db_proxy_endpoint)
 
-    #Getting db
+    #Getting db proxy IP
     try:
         db_ip = socket.gethostbyname(db_proxy_endpoint)
-        print(f"DB proxy hostname resolved to IP: {db_ip}")
+        logger.info("DB proxy hostname resolved to IP: %s", db_ip)
     except Exception as e:
-        print(f"[ERROR] DNS resolution failed for DB_PROXY_ENDPOINT: {e}")
+        logger.error("DNS resolution failed for DB_PROXY_ENDPOINT: %s", e, exc_info=True)
         raise
 
     #IAM auth
     try:
-        print("Generating IAM authentication token...")
+        logger.info("Generating IAM authentication token...")
         region = os.environ["AWS_REGION"]
 
         # A DB felhasználó neve ugyanaz mint amit eddig a Secret Managerben tároltál
@@ -36,14 +41,14 @@ def lambda_handler(event, context):
             DBUsername=db_user,
             Region=region
         )
-        print("IAM auth token generated.")
+        logger.info("IAM auth token generated")
     except Exception as e:
-        print(f"[ERROR] Failed to generate IAM auth token: {e}")
+        logger.error("Failed to generate IAM auth token: %s", e, exc_info=True)
         raise
 
     # Step 3: Connect using IAM token (ÚJ)
     try:
-        print("Attempting DB connection with IAM auth...")
+        logger.info("Attempting DB connection with IAM auth...")
         conn = pymysql.connect(
             host=db_proxy_endpoint,
             user=db_user,
@@ -52,24 +57,24 @@ def lambda_handler(event, context):
             cursorclass=pymysql.cursors.DictCursor,
             ssl={"ssl": True}
         )
-        print("DB connection successful via IAM authentication")
+        logger.info("DB connection successful via IAM authentication")
     except Exception as e:
-        print(f"[ERROR] Failed to connect to DB using IAM auth: {e}")
+        logger.error("Failed to connect to DB using IAM auth: %s", e, exc_info=True)
         raise
 
     # Step 4: Query execution (változatlan)
     try:
         with conn.cursor() as cursor:
-            print("Querying incidents...")
+            logger.info("Querying incidents...")
             cursor.execute("SELECT * FROM incidents ORDER BY created_at DESC;")
             rows = cursor.fetchall()
-            print(f"Query returned {len(rows)} rows")
+            logger.info("Query returned %d rows", len(rows))
     except Exception as e:
-        print(f"[ERROR] Query failed: {e}")
+        logger.error("Query failed: %s", e, exc_info=True)
         raise
     finally:
         conn.close()
-        print("DB connection closed")
+        logger.info("DB connection closed")
 
     return {
         "statusCode": 200,
