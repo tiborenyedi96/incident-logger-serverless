@@ -18,14 +18,6 @@ def lambda_handler(event, context):
 
     logger.info("DB_PROXY_ENDPOINT: %s", db_proxy_endpoint)
 
-    #Getting and logging RDS proxy IP
-    try:
-        db_ip = socket.gethostbyname(db_proxy_endpoint)
-        logger.info("DB proxy hostname resolved to IP: %s", db_ip)
-    except Exception as e:
-        logger.error("DNS resolution failed for DB_PROXY_ENDPOINT: %s", e, exc_info=True)
-        raise
-
     #IAM auth
     try:
         logger.info("Generating IAM authentication token...")
