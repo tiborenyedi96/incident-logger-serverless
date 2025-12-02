@@ -18,7 +18,7 @@ def lambda_handler(event, context):
 
     logger.info("DB_PROXY_ENDPOINT: %s", db_proxy_endpoint)
 
-    #Getting db proxy IP
+    #Getting and logging RDS proxy IP
     try:
         db_ip = socket.gethostbyname(db_proxy_endpoint)
         logger.info("DB proxy hostname resolved to IP: %s", db_ip)
