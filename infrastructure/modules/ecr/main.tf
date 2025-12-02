@@ -22,12 +22,7 @@ resource "aws_ecr_repository_policy" "get_repository_policy" {
         Sid    = "LambdaECRImageRetrievalPolicy"
         Effect = "Allow"
         Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-        Condition = {
-          StringLike = {
-            "aws:SourceArn" = var.lambda_role_arn
-          }
+          AWS = var.lambda_role_arn
         }
         Action = [
           "ecr:GetDownloadUrlForLayer",
