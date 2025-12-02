@@ -27,7 +27,7 @@ resource "aws_iam_role" "lambda_role" {
 
 resource "aws_iam_policy" "lambda_rds_policy" {
   name        = "${var.name}-lambda-policy"
-  description = "Lambda policy for RDS proxy and ECR"
+  description = "Lambda policy for RDS proxy"
 
   policy = jsonencode({
     Version : "2012-10-17",
@@ -35,15 +35,6 @@ resource "aws_iam_policy" "lambda_rds_policy" {
       {
         Effect : "Allow",
         Action : "rds-db:connect",
-        Resource : "*"
-      },
-      {
-        Effect : "Allow",
-        Action : [
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "ecr:BatchCheckLayerAvailability"
-        ],
         Resource : "*"
       }
     ]
@@ -63,6 +54,11 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_execution_role" {
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution_role" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_ecr_read_only" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
 //GET function
