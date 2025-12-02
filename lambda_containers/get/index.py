@@ -13,16 +13,13 @@ rds = boto3.client("rds")
 
 def lambda_handler(event, context):
     logger.info("Lambda execution started")
-
     db_proxy_endpoint = os.environ["DB_PROXY_ENDPOINT"]
-
     logger.info("DB_PROXY_ENDPOINT: %s", db_proxy_endpoint)
 
     #IAM auth
     try:
         logger.info("Generating IAM authentication token...")
         region = os.environ["AWS_REGION"]
-
         db_user = os.environ["DB_USER"]
 
         token = rds.generate_db_auth_token(
