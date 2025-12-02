@@ -64,6 +64,7 @@ resource "aws_lambda_function" "lambda_get_incidents" {
   environment {
     variables = {
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
+      DB_USER           = var.db_username
     }
   }
 
@@ -91,6 +92,7 @@ resource "aws_lambda_function" "lambda_post_incident" {
   environment {
     variables = {
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
+      DB_USER           = var.db_username
     }
   }
 
