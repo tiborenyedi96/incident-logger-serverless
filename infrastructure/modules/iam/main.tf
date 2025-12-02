@@ -380,7 +380,7 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
           "ecr:CompleteLayerUpload",
           "ecr:BatchGetImage"
         ],
-        Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-lambda-image-repository"
+        Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-*"
       },
       {
         Effect = "Allow",
@@ -388,7 +388,7 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
           "lambda:UpdateFunctionCode",
           "lambda:GetFunction"
         ],
-        Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-lambda-get-incidents"
+        Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-*"
       }
     ]
   })
