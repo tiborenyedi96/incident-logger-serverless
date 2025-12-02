@@ -366,7 +366,8 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
         Effect = "Allow",
         Action = [
           "lambda:UpdateFunctionCode",
-          "lambda:GetFunction"
+          "lambda:GetFunction",
+          "lambda:GetFunctionConfiguration"
         ],
         Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-*"
       }
