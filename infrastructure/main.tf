@@ -75,8 +75,9 @@ module "cloudfront" {
 }
 
 module "ecr" {
-  source = "./modules/ecr"
-  name   = "incident-logger"
+  source          = "./modules/ecr"
+  name            = "incident-logger"
+  lambda_role_arn = module.lambda.lambda_role_arn
 }
 
 //Egress SG rules
