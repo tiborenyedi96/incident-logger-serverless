@@ -27,7 +27,7 @@ resource "aws_iam_role" "lambda_role" {
 
 resource "aws_iam_policy" "lambda_rds_policy" {
   name        = "${var.name}-lambda-policy"
-  description = "Lambda policy for Secrets Manager and RDS proxy"
+  description = "Lambda policy for RDS proxy and ECR"
 
   policy = jsonencode({
     Version : "2012-10-17",
@@ -35,6 +35,15 @@ resource "aws_iam_policy" "lambda_rds_policy" {
       {
         Effect : "Allow",
         Action : "rds-db:connect",
+        Resource : "*"
+      },
+      {
+        Effect : "Allow",
+        Action : [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability"
+        ],
         Resource : "*"
       }
     ]
