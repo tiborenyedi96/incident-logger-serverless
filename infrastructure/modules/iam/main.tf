@@ -355,48 +355,53 @@ resource "aws_iam_role" "github_actions_ecr_role" {
   })
 }
 
-resource "aws_iam_policy" "github_actions_ecr_policy" {
-  name        = "${var.name}-github-actions-ecr-policy"
-  description = "Policy for GitHub Actions to push to ECR and update Lambda functions"
+# resource "aws_iam_policy" "github_actions_ecr_policy" {
+#   name        = "${var.name}-github-actions-ecr-policy"
+#   description = "Policy for GitHub Actions to push to ECR and update Lambda functions"
 
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "ecr:GetAuthorizationToken"
-        ],
-        Resource = "*"
-      },
-      {
-        Effect = "Allow",
-        Action = [
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:PutImage",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload",
-          "ecr:BatchGetImage",
-          "ecr:DescribeImages",
-          "ecr:DescribeRepositories"
-        ],
-        Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-*"
-      },
-      {
-        Effect = "Allow",
-        Action = [
-          "lambda:UpdateFunctionCode",
-          "lambda:GetFunction"
-        ],
-        Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-*"
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "ecr:GetAuthorizationToken"
+#         ],
+#         Resource = "*"
+#       },
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "ecr:BatchCheckLayerAvailability",
+#           "ecr:GetDownloadUrlForLayer",
+#           "ecr:PutImage",
+#           "ecr:InitiateLayerUpload",
+#           "ecr:UploadLayerPart",
+#           "ecr:CompleteLayerUpload",
+#           "ecr:BatchGetImage",
+#           "ecr:DescribeImages",
+#           "ecr:DescribeRepositories"
+#         ],
+#         Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-*"
+#       },
+#       {
+#         Effect = "Allow",
+#         Action = [
+#           "lambda:UpdateFunctionCode",
+#           "lambda:GetFunction"
+#         ],
+#         Resource = "arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-*"
+#       }
+#     ]
+#   })
+# }
 
-resource "aws_iam_role_policy_attachment" "github_actions_ecr_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "lambda_ecr_read_only" {
   role       = aws_iam_role.github_actions_ecr_role.name
-  policy_arn = aws_iam_policy.github_actions_ecr_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
+
+# resource "aws_iam_role_policy_attachment" "github_actions_ecr_policy_attachment" {
+#   role       = aws_iam_role.github_actions_ecr_role.name
+#   policy_arn = aws_iam_policy.github_actions_ecr_policy.arn
+# }
