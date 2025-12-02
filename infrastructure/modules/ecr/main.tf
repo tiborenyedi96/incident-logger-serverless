@@ -1,5 +1,14 @@
-resource "aws_ecr_repository" "this" {
-  name                 = "${var.name}-lambda-image-repository"
+resource "aws_ecr_repository" "get_repository" {
+  name                 = "${var.name}-lambda-GET-image-repository"
+  image_tag_mutability = "IMMUTABLE"
+
+  encryption_configuration {
+    encryption_type = "AES256"
+  }
+}
+
+resource "aws_ecr_repository" "post_repository" {
+  name                 = "${var.name}-lambda-POST-image-repository"
   image_tag_mutability = "IMMUTABLE"
 
   encryption_configuration {
