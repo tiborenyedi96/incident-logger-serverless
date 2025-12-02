@@ -378,7 +378,9 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
-          "ecr:BatchGetImage"
+          "ecr:BatchGetImage",
+          "ecr:DescribeImages",
+          "ecr:DescribeRepositories"
         ],
         Resource = "arn:aws:ecr:eu-central-1:299097238534:repository/incident-logger-*"
       },
