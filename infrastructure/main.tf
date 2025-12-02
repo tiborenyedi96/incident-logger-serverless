@@ -37,9 +37,10 @@ module "rds_proxy" {
 }
 
 module "lambda" {
-  source = "./modules/lambda"
-  name   = "incident-logger"
-  vpc_id = module.vpc.vpc_id
+  source      = "./modules/lambda"
+  name        = "incident-logger"
+  db_username = "appuser"
+  vpc_id      = module.vpc.vpc_id
   subnet_ids = [
     module.vpc.private_a_subnet_id,
     module.vpc.private_b_subnet_id
