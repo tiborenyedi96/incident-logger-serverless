@@ -47,6 +47,7 @@ module "lambda" {
   ]
 
   rds_proxy_endpoint = module.rds_proxy.proxy_endpoint
+  get_repository_url = module.ecr.get_repository_url
   function_memory    = 256
   function_timeout   = 30
 }
