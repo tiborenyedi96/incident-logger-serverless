@@ -54,7 +54,6 @@ def lambda_handler(event, context):
             password=token,
             database=db_name,
             cursorclass=pymysql.cursors.DictCursor,
-            ssl=True,
             connect_timeout=5
         )
         logger.info("DB connection successful via IAM authentication")
