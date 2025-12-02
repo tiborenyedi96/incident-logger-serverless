@@ -1,0 +1,17 @@
+name: Lambda GET build and push
+permissions:
+    id-token: write
+    contents: write
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "lambda_containers/get/**"
+    workflow_dispatch:
+jobs:
+    lambda_get_build_and_push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
