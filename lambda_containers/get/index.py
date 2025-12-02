@@ -31,7 +31,7 @@ def lambda_handler(event, context):
         logger.info("Generating IAM authentication token...")
         region = os.environ["AWS_REGION"]
 
-        db_user = "appuser"
+        db_user = os.environ["DB_USER"]
 
         token = rds.generate_db_auth_token(
             DBHostname=db_proxy_endpoint,
