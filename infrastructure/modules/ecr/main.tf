@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "get_repository" {
-  name                 = "${var.name}-lambda-GET-image-repository"
+  name                 = "${var.name}-lambda-get-image-repository"
   image_tag_mutability = "IMMUTABLE"
 
   encryption_configuration {
@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "get_repository" {
 }
 
 resource "aws_ecr_repository" "post_repository" {
-  name                 = "${var.name}-lambda-POST-image-repository"
+  name                 = "${var.name}-lambda-post-image-repository"
   image_tag_mutability = "IMMUTABLE"
 
   encryption_configuration {
