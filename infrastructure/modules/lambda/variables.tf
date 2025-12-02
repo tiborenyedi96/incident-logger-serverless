@@ -25,3 +25,8 @@ variable "function_memory" {
 variable "function_timeout" {
   type = number
 }
+
+variable "get_repository_url" {
+  type        = string
+  description = "ECR repository URL for GET Lambda function"
+}
