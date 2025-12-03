@@ -8,5 +8,5 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Infrastructure CI/CD Diagram:<br>
 ![CI/CD diagram](docs/cicd-infrastructure-diagram.png)
 
-## Github Actions Application CI/CD Diagram:<br>
-![CI/CD diagram](docs/cicd-application-diagram.png)
+## Github Actions Frontend CI/CD Diagram:<br>
+![CI/CD diagram](docs/cicd-frontend-diagram.png)
