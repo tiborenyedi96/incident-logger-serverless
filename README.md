@@ -1,2 +1,2 @@
-# incident-logger-serverless
-The serverless implementation of my incident logger project... work in progress...
+# Serverless Incident Logger
+This is the serverless version of my previous incident logger project () hosted on AWS.
