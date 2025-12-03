@@ -27,6 +27,9 @@ variable "function_timeout" {
 }
 
 variable "get_repository_url" {
-  type        = string
-  description = "ECR repository URL for GET Lambda function"
+  type = string
+}
+
+variable "post_repository_url" {
+  type = string
 }

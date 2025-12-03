@@ -47,10 +47,11 @@ module "lambda" {
     module.vpc.private_b_subnet_id
   ]
 
-  rds_proxy_endpoint = module.rds_proxy.proxy_endpoint
-  get_repository_url = module.ecr.get_repository_url
-  function_memory    = 256
-  function_timeout   = 30
+  rds_proxy_endpoint  = module.rds_proxy.proxy_endpoint
+  get_repository_url  = module.ecr.get_repository_url
+  post_repository_url = module.ecr.post_repository_url
+  function_memory     = 256
+  function_timeout    = 30
 }
 
 module "api_gateway" {

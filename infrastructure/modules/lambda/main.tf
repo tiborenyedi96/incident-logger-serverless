@@ -90,11 +90,10 @@ resource "aws_lambda_function" "lambda_get_incidents" {
 
 //POST function
 resource "aws_lambda_function" "lambda_post_incident" {
-  filename      = "${path.module}/post-function.zip"
+  package_type  = "Image"
+  image_uri     = "${var.post_repository_url}:latest"
   function_name = "${var.name}-lambda-post-incident"
   role          = aws_iam_role.lambda_role.arn
-  handler       = "index.lambda_handler"
-  runtime       = "python3.12"
   memory_size   = var.function_memory
   timeout       = var.function_timeout
 
@@ -111,7 +110,7 @@ resource "aws_lambda_function" "lambda_post_incident" {
   }
 
   tags = {
-    Name    = "${var.name}-lambda-post-incidents"
+    Name    = "${var.name}-lambda-get-incidents"
     Project = var.name
   }
 }
