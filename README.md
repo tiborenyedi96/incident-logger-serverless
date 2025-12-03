@@ -6,3 +6,4 @@ Architecture diagram:\
 ![Architecture diagram](docs/architecture-diagram.png)
 
 Github Actions CI/CD diagram:\
+![CI/CD diagram](docs/cicd-diagram.png)
