@@ -320,6 +320,16 @@ resource "aws_iam_policy" "github_actions_frontend_build_policy" {
           "arn:aws:s3:::incident-logger-frontend",
           "arn:aws:s3:::incident-logger-frontend/*"
         ]
+      },
+      {
+        Sid : "ActionsCloudfrontAccess",
+        Effect : "Allow",
+        Action : [
+          "cloudfront:CreateInvalidation"
+        ],
+        Resource : [
+          var.cloudfront_distribution_arn
+        ]
       }
     ]
   })
