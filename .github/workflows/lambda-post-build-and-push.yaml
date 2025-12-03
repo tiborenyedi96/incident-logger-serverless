@@ -45,7 +45,7 @@ jobs:
                 ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                 ECR_REPOSITORY: incident-logger-lambda-image-repository
                 IMAGE_TAG: ${{ github.sha }}
-                LAMBDA_FUNCTION_NAME: incident-logger-lambda-post-incidents
+                LAMBDA_FUNCTION_NAME: incident-logger-lambda-post-incident
               run: |
                 aws lambda update-function-code \
                   --function-name $LAMBDA_FUNCTION_NAME \
