@@ -1,6 +1,7 @@
 module "iam" {
-  source = "./modules/iam"
-  name   = "incident-logger"
+  source                      = "./modules/iam"
+  name                        = "incident-logger"
+  cloudfront_distribution_arn = module.cloudfront.cloudfront_distribution_arn
 }
 
 module "vpc" {
