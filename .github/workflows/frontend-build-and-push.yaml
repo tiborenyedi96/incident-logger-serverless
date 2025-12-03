@@ -43,3 +43,9 @@ jobs:
                 
             - name: Upload dist to S3
               run: aws s3 sync frontend/dist s3://incident-logger-frontend --delete
+            
+            - name: Create CloudFront cache invalidation
+              run: |
+                aws cloudfront create-invalidation \
+                --distribution-id E1AI9BWPT5T6W6 \
+                --paths "/*"
