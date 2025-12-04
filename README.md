@@ -6,10 +6,10 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ![Architecture diagram](docs/architecture-diagram.png)
 
 ## Github Actions Infrastructure CI/CD Diagram:<br>
-![CI/CD diagram](docs/cicd-infrastructure-diagram.png)
+![CI/CD diagram - Infrastructure](docs/cicd-infrastructure-diagram.png)
 
 ## Github Actions Frontend CI/CD Diagram:<br>
-![CI/CD diagram](docs/cicd-frontend-diagram.png)
+![CI/CD diagram - Frontend](docs/cicd-frontend-diagram.png)
 
 ## Github Actions Lambda CI/CD Diagram:<br>
-![CI/CD diagram](docs/cicd-lambda-diagram.png)
+![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
