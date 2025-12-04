@@ -14,6 +14,9 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Lambda CI/CD Diagram:<br>
 ![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
 
+## Screenshot of the frontend:<br>
+![Frontend - Screenshot](docs/frontend-screenshot-01.png)
+
 ## Key Features<br>
 
 - Fully serverless AWS architecture (CloudFront, S3, API Gateway, Lambda, Aurora Serverless v2)
