@@ -1,11 +1,6 @@
 resource "aws_security_group" "lambda_sg" {
   name   = "${var.name}-lambda-sg"
   vpc_id = var.vpc_id
-
-  tags = {
-    Name    = "${var.name}-lambda-sg"
-    Project = var.name
-  }
 }
 
 resource "aws_iam_role" "lambda_role" {
@@ -81,11 +76,6 @@ resource "aws_lambda_function" "lambda_get_incidents" {
       DB_USER           = var.db_username
     }
   }
-
-  tags = {
-    Name    = "${var.name}-lambda-get-incidents"
-    Project = var.name
-  }
 }
 
 //POST function
@@ -107,10 +97,5 @@ resource "aws_lambda_function" "lambda_post_incident" {
       DB_PROXY_ENDPOINT = var.rds_proxy_endpoint
       DB_USER           = var.db_username
     }
-  }
-
-  tags = {
-    Name    = "${var.name}-lambda-get-incidents"
-    Project = var.name
   }
 }

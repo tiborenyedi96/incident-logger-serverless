@@ -2,11 +2,6 @@ resource "aws_vpc" "this" {
   cidr_block           = var.cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true
-
-  tags = {
-    Name    = var.name
-    Project = var.name
-  }
 }
 
 resource "aws_subnet" "private_a" {
@@ -14,11 +9,6 @@ resource "aws_subnet" "private_a" {
   cidr_block              = var.private_a
   availability_zone       = "eu-central-1a"
   map_public_ip_on_launch = false
-
-  tags = {
-    Name    = "${var.name}-private-a"
-    Project = var.name
-  }
 }
 
 resource "aws_subnet" "private_b" {
@@ -26,20 +16,10 @@ resource "aws_subnet" "private_b" {
   cidr_block              = var.private_b
   availability_zone       = "eu-central-1b"
   map_public_ip_on_launch = false
-
-  tags = {
-    Name    = "${var.name}-private-b"
-    Project = var.name
-  }
 }
 
 resource "aws_route_table" "private_rtb" {
   vpc_id = aws_vpc.this.id
-
-  tags = {
-    Name    = "${var.name}-private-rtb"
-    Project = var.name
-  }
 }
 
 resource "aws_route_table_association" "private_a" {
