@@ -10,3 +10,6 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 
 ## Github Actions Frontend CI/CD Diagram:<br>
 ![CI/CD diagram](docs/cicd-frontend-diagram.png)
+
+## Github Actions Lambda CI/CD Diagram:<br>
+![CI/CD diagram](docs/cicd-lambda-diagram.png)
