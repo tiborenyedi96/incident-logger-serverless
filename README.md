@@ -28,7 +28,7 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 - **CI/CD:** GitHub Actions (infrastructure, frontend, backend)
 - **Frontend:** Vue.js SPA
 
-## High level overview of the architecture:
+## High Level Overview Of The Architecture:
 ### Frontend and API Layer:
 The frontend of the application is a simple SPA developed in Vue.js. It only has basic functionality since it is not the main focus of this project, but it could be easily expanded further. Users are connecting to cloudfront which fetches the frontend's data from a private S3 bucket configured with origin access control and forwards the requests to an API Gateway.<br>
 **Data Flow: Client -> Cloudfront with S3 OAC -> API Gateway**
