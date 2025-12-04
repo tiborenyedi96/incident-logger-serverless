@@ -47,6 +47,5 @@ The backend utilizes multiple AWS services. It sits inside a VPC with two privat
 
 ## Future Improvements
 - Add monitoring with CloudWatch dashboards for observability
-- Add WAF to CloudFront distribution for enhanced security
 - Constantly refactoring Terraform code, reducing repeated elements and hardcoded values and improving the reusability of my modules
 - Trying different experiments in AWS Fault Injection Service to see where my infrastructure has its limits and planning fixes to address them
