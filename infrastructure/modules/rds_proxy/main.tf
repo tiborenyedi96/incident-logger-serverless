@@ -1,11 +1,6 @@
 resource "aws_security_group" "rds_proxy_sg" {
   name   = "${var.name}-rds-proxy-sg"
   vpc_id = var.vpc_id
-
-  tags = {
-    Name    = "${var.name}-rds-proxy-sg"
-    Project = var.name
-  }
 }
 
 resource "aws_iam_role" "rds_proxy_role" {
@@ -23,11 +18,6 @@ resource "aws_iam_role" "rds_proxy_role" {
       }
     ]
   })
-
-  tags = {
-    Name    = "${var.name}-rds-proxy-role"
-    Project = var.name
-  }
 }
 
 resource "aws_iam_policy" "rds_proxy_policy" {
@@ -67,11 +57,6 @@ resource "aws_db_proxy" "this" {
     auth_scheme = "SECRETS"
     iam_auth    = "REQUIRED"
     secret_arn  = var.rds_secretsmanager_secret_arn
-  }
-
-  tags = {
-    Name    = "${var.name}-rds-proxy"
-    Project = var.name
   }
 }
 
