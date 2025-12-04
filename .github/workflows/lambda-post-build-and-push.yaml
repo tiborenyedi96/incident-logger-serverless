@@ -34,11 +34,11 @@ jobs:
                 ECR_REPOSITORY: incident-logger-lambda-post-image-repository
                 IMAGE_TAG: ${{ github.sha }}
               run: |
-                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-                docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-                docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-                echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+                  docker buildx build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+                  docker buildx build --platform linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                  echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
             - name: Deploy to Lambda
               env:
