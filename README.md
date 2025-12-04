@@ -31,10 +31,10 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 - Cost-efficient, scalable, low-maintenance solution
 
 ## Tech Stack<br>
-- **AWS:** CloudFront, S3, API Gateway, Lambda, Aurora Serverless v2, RDS Proxy, Secrets Manager
+- **Cloud platform:** AWS
 - **IaC:** Terraform
-- **CI/CD:** GitHub Actions (infrastructure, frontend, backend)
-- **Frontend:** Vue.js SPA
+- **CI/CD:** GitHub Actions
+- **Frontend:** Vue.js
 
 ## High Level Overview Of The Architecture:
 ### Frontend and API Layer:
