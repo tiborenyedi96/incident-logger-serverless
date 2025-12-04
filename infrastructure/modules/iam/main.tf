@@ -215,7 +215,8 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
           "iam:UntagRole",
           "iam:PassRole",
           "iam:Get*",
-          "iam:List*"
+          "iam:List*",
+          "iam:TagOpenIDConnectProvider"
         ],
         Resource : "*"
       },
