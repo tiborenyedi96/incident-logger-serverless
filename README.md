@@ -24,7 +24,7 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 
 ## Key Features<br>
 
-- Fully serverless AWS architecture (CloudFront, S3, API Gateway, Lambda, Aurora Serverless v2)
+- Fully serverless AWS architecture (CloudFront, S3, API Gateway, Lambda (with arm64 architecture for cost effectiveness), Aurora Serverless v2)
 - Infrastructure-as-Code with Terraform (modular structure, remote backend with S3 + DynamoDB for versioning and state-locking)
 - Automated CI/CD pipelines using GitHub Actions for infrastructure, frontend and backend
 - Secure VPC design with private subnets and minimal security group rules
