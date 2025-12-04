@@ -64,6 +64,7 @@ resource "aws_lambda_function" "lambda_get_incidents" {
   role          = aws_iam_role.lambda_role.arn
   memory_size   = var.function_memory
   timeout       = var.function_timeout
+  architectures = ["arm64"]
 
   vpc_config {
     subnet_ids         = var.subnet_ids
@@ -86,6 +87,7 @@ resource "aws_lambda_function" "lambda_post_incident" {
   role          = aws_iam_role.lambda_role.arn
   memory_size   = var.function_memory
   timeout       = var.function_timeout
+  architectures = ["arm64"]
 
   vpc_config {
     subnet_ids         = var.subnet_ids
