@@ -14,8 +14,13 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Lambda CI/CD Diagram:<br>
 ![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
 
-## Screenshot of the frontend:<br>
-![Frontend - Screenshot](docs/frontend-screenshot-01.png)
+## Application UI
+
+### Incident List View
+![Incident List](docs/screenshot-incidents.png)
+
+### Submit New Incident
+![Submit Incident](docs/screenshot-submit.png)
 
 ## Key Features<br>
 
