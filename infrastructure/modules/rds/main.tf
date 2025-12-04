@@ -47,19 +47,9 @@ resource "aws_secretsmanager_secret_version" "rds_secret_value" {
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = "${var.name}-rds-subnet-group"
   subnet_ids = var.subnet_ids
-
-  tags = {
-    Name    = "${var.name}-rds-subnet-group"
-    Project = var.name
-  }
 }
 
 resource "aws_security_group" "rds_sg" {
   name   = "${var.name}-rds-sg"
   vpc_id = var.vpc_id
-
-  tags = {
-    Name    = "${var.name}-rds-sg"
-    Project = var.name
-  }
 }
