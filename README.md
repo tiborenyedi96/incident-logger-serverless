@@ -14,10 +14,18 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Lambda CI/CD Diagram:<br>
 ![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
 
+## Key Features<br>
+
+- Fully serverless AWS architecture (CloudFront, S3, API Gateway, Lambda, Aurora Serverless v2)
+- Infrastructure-as-Code with Terraform (modular structure, remote state with S3 + DynamoDB for versioning and state-locking)
+- Automated CI/CD pipelines using GitHub Actions for infrastructure, frontend and backend
+- Secure VPC design with private subnets and minimal security group rules
+- Cost-efficient, scalable, low-maintenance solution
+
 ## High level overview of the architecture:
 ### Frontend and API Layer:
 The frontend of the application is a simple SPA developed in Vue.js. It only has basic functionality since it is not the main focus of this project, but it could be easily expanded further. Users are connecting to cloudfront which fetches the frontend's data from a private S3 bucket configured with origin access control and forwards the requests to an API Gateway.<br>
 **Data Flow: Client -> Cloudfront with S3 OAC -> API Gateway**
 ### Backend and Database Layer:
 The backend utilizes multiple AWS services. It sits inside a VPC with two private subnets in separate availability zones. Public subnets/NAT gateways/Internet gateways are not included by design since the components of the architecture do not require internet connection so it is much more cost-effective and more secure to exclude them and it is also easy to add them later if requested. The security group rules are also designed with a security first mindset since they only enable egress communication within the boundaries of the VPC and only allow ingress communication where needed. I have also tried to minimize IAM permissions and using IAM authentication and also OIDC for pipelines/components where I could to minimize the usage of traditional secrets. IAM was one of the biggest challenges during the development but at least now I understand why lots of engineers say that IAM is hard and I have also learned a lot about it.<br>
-**Data Flow: API Gateway -> Invoke GET/POST Lambda function based on request method -> RDS Proxy for database connection management -> Insert/Fetch data into/from Amazon Aurora Serverless V2 -> Response to API gateway**
+**Data Flow: API Gateway -> Invoke GET/POST Lambda function based on request method -> RDS Proxy for database connection management -> Insert/Fetch data into/from Amazon Aurora Serverless v2 -> Response to API gateway**
