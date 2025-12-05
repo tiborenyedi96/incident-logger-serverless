@@ -14,7 +14,7 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Lambda CI/CD Diagram:
 ![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
 
-## Application UI
+## Application UI:
 
 ### Incident List View:
 ![Incident List](docs/screenshot-incidents.png)
