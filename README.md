@@ -45,6 +45,34 @@ The frontend of the application is a simple SPA developed in Vue.js. It only has
 The backend utilizes multiple AWS services. It sits inside a VPC with two private subnets in separate availability zones. Public subnets/NAT gateways/Internet gateways are not included by design since the components of the architecture do not require internet connection so it is much more cost-effective and more secure to exclude them and it is also easy to add them later if requested. The security group rules are also designed with a security first mindset since they only enable egress communication within the boundaries of the VPC and only allow ingress communication where needed. I have also tried to minimize IAM permissions and using IAM authentication and also OIDC for pipelines/components where I could to minimize the usage of traditional secrets. IAM was one of the biggest challenges during the development but at least now I understand why lots of engineers say that IAM is hard and I have also learned a lot about it.<br>
 **Data Flow: API Gateway -> Invoke GET/POST Lambda function based on request method -> RDS Proxy for database connection management -> Insert/Fetch data into/from Amazon Aurora Serverless v2 -> Response to API gateway**
 
+## Design Decisions & Evolution
+
+This project went through several iterations as I learned and optimized the architecture and I still work on it to make it better. Let me show you some of the key decisions I made during development:
+
+### Decision 1: Separation of Application and Infrastructure Lifecycle:
+
+**Initial Approach:** I wanted to deploy the frontend build to S3 via Terraform.
+
+**Problem Identified:** I have used my hobby game development experience where I learned separation of concerns is one of the most important design principles and realized if I deploy the frontend with Terraform I will create a tightly coupled architecture where the application and infrastructure components would be too dependent on each other.
+
+**Solution:** Learned the basics of Github Actions and introduced it to the project to separate application and infrastructure lifecycle. In the end I started to like Github Actions and I found it interesting and useful so I started to introduce more pipelines.
+
+### Decision 2: Containerized Lambda Functions:
+
+**Initial Approach:** Zip file artifacts for Lambda deployment.
+
+**Problem Identified:** Zip files are harder to version, have a small file size limit, hard to test locally, and not evident to integrate into CI/CD pipelines consistently. If you want to use zip files you also need to include dependencies in the zip file if your lambda code uses an external library.
+
+**Solution:** Migrated to containerized Lambda functions with ECR and automated image building in CI/CD.
+
+### Decision 3: ARM64 Architecture for Lambda:
+
+**Initial Approach:** x86_64 Lambda functions (this is the default behaviour)
+
+**Optimization Identified:** AWS Graviton (arm64) processors most of the time offer better price/performance ratio for small compute workloads so I have decided to try them in my functions.
+
+**Solution:** Migrated Lambda functions to arm64 architecture and updated CI/CD pipelines to build arm64 container images.
+
 ## Future Improvements
 - Add monitoring with CloudWatch dashboards for observability
 - Constantly refactoring Terraform code, reducing repeated elements and hardcoded values and improving the reusability of my modules
