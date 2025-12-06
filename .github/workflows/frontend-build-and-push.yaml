@@ -27,6 +27,9 @@ jobs:
                 aws-region: eu-central-1
                 role-to-assume: arn:aws:iam::299097238534:role/incident-logger-github-actions-frontend-build-role
                 role-session-name: AWSFrontendBuildSession
+
+            - name: Create .env.production
+              run: echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > frontend/.env.production
                     
             - name: Building frontend
               working-directory: frontend
