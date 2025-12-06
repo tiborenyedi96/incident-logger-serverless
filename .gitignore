@@ -39,3 +39,5 @@ coverage
 *.tsbuildinfo
 dist
 dist-ssr
+.env.development
+.env.production
