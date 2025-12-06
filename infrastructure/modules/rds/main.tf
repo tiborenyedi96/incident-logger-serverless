@@ -3,18 +3,18 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_rds_cluster" "this" {
-  cluster_identifier      = "${var.name}-rds-cluster"
-  engine                  = "aurora-mysql"
-  engine_mode             = "provisioned"
-  database_name           = "incident_logger_db"
-  master_username         = var.db_username
-  master_password         = random_password.rds_password.result
-  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
-  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
-  storage_encrypted       = true
-  backup_retention_period = 5
-  apply_immediately       = true
-  skip_final_snapshot     = true
+  cluster_identifier        = "${var.name}-rds-cluster"
+  engine                    = "aurora-mysql"
+  engine_mode               = "provisioned"
+  database_name             = "incident_logger_db"
+  master_username           = var.db_username
+  master_password           = random_password.rds_password.result
+  db_subnet_group_name      = aws_db_subnet_group.rds_subnet_group.name
+  vpc_security_group_ids    = [aws_security_group.rds_sg.id]
+  storage_encrypted         = true
+  backup_retention_period   = 5
+  apply_immediately         = true
+  final_snapshot_identifier = "final"
 
   serverlessv2_scaling_configuration {
     min_capacity = 0.5
