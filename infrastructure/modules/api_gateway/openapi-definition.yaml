@@ -21,7 +21,7 @@ paths:
         payloadFormatVersion: "2.0"
         type: aws_proxy
         httpMethod: POST
-        uri: arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-lambda-get-incidents/invocations
+        uri: arn:aws:apigateway:${aws_region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${aws_region}:${aws_account_id}:function:${get_function_name}/invocations
     post:
       summary: Create Incident
       operationId: create_incident_incidents_post
@@ -48,7 +48,7 @@ paths:
         payloadFormatVersion: "2.0"
         type: aws_proxy
         httpMethod: POST
-        uri: arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:299097238534:function:incident-logger-lambda-post-incident/invocations
+        uri: arn:aws:apigateway:${aws_region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${aws_region}:${aws_account_id}:function:${post_function_name}/invocations
 components:
   schemas:
     HTTPValidationError:
