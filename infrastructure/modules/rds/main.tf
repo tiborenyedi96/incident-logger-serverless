@@ -1,3 +1,7 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_rds_cluster" "this" {
   cluster_identifier      = "${var.name}-rds-cluster"
   engine                  = "aurora-mysql"
@@ -19,7 +23,7 @@ resource "aws_rds_cluster" "this" {
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  availability_zone   = "eu-central-1a"
+  availability_zone   = data.aws_availability_zones.available.names[0]
   publicly_accessible = false
   identifier          = "${var.name}-rds-cluster-instance"
   cluster_identifier  = aws_rds_cluster.this.id
