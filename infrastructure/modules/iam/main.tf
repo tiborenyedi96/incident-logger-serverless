@@ -78,7 +78,7 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
           "dynamodb:DeleteItem",
           "dynamodb:DescribeTable"
         ],
-        Resource : "arn:aws:dynamodb:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:table/incident-logger-tf-lock"
+        Resource : "arn:aws:dynamodb:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:table/incident-logger-tf-lock"
       },
       {
         Sid : "ReadOnlyForPlan",
@@ -173,7 +173,7 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
           "dynamodb:UpdateItem",
           "dynamodb:DescribeTable"
         ],
-        Resource : "arn:aws:dynamodb:${data.aws_caller_identity.current.account_id}:${data.aws_region.current.name}:table/incident-logger-tf-lock"
+        Resource : "arn:aws:dynamodb:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:table/incident-logger-tf-lock"
       },
       {
         Sid : "S3CRUD",
@@ -385,7 +385,7 @@ resource "aws_iam_policy" "github_actions_ecr_policy" {
           "lambda:GetFunction",
           "lambda:GetFunctionConfiguration"
         ],
-        Resource = "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:incident-logger-*"
+        Resource = "arn:aws:lambda:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:function:incident-logger-*"
       }
     ]
   })
