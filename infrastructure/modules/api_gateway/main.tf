@@ -1,7 +1,15 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 resource "aws_apigatewayv2_api" "this" {
   name          = "${var.name}-API-GW"
   protocol_type = "HTTP"
-  body          = file("${path.module}/openapi-definition.yaml")
+  body = templatefile("${path.module}/openapi-definition.yaml", {
+    aws_account_id     = data.aws_caller_identity.current.account_id
+    aws_region         = data.aws_region.current.name
+    get_function_name  = element(split(":", var.get_function_arn), length(split(":", var.get_function_arn)) - 1)
+    post_function_name = element(split(":", var.post_function_arn), length(split(":", var.post_function_arn)) - 1)
+  })
 
   cors_configuration {
     allow_methods = ["POST", "GET", "OPTIONS"]
