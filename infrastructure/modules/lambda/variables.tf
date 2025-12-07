@@ -14,6 +14,10 @@ variable "subnet_ids" {
   type = list(string)
 }
 
+variable "rds_proxy_arn" {
+  type = string
+}
+
 variable "rds_proxy_endpoint" {
   type = string
 }

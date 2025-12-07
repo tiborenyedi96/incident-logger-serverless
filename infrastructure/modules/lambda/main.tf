@@ -30,7 +30,7 @@ resource "aws_iam_policy" "lambda_rds_policy" {
       {
         Effect : "Allow",
         Action : "rds-db:connect",
-        Resource : "*"
+        Resource : var.rds_proxy_arn
       }
     ]
   })
