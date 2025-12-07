@@ -1,3 +1,13 @@
+data "aws_region" "current" {}
+
+data "aws_arn" "rds_proxy" {
+  arn = var.rds_proxy_arn
+}
+
+locals {
+  proxy_resource_id = split(":", data.aws_arn.rds_proxy.resource)[1]
+}
+
 resource "aws_security_group" "lambda_sg" {
   name   = "${var.name}-lambda-sg"
   vpc_id = var.vpc_id
@@ -30,7 +40,7 @@ resource "aws_iam_policy" "lambda_rds_policy" {
       {
         Effect : "Allow",
         Action : "rds-db:connect",
-        Resource : var.rds_proxy_arn
+        Resource : "arn:aws:rds-db:${data.aws_region.current.id}:${data.aws_arn.rds_proxy.account}:dbuser:${local.proxy_resource_id}/${var.db_username}"
       }
     ]
   })
