@@ -50,5 +50,5 @@ jobs:
             - name: Create CloudFront cache invalidation
               run: |
                 aws cloudfront create-invalidation \
-                --distribution-id E1AI9BWPT5T6W6 \
+                --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
                 --paths "/*"
