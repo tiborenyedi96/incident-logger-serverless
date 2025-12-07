@@ -2,7 +2,7 @@ output "rds_proxy_arn" {
   value = aws_db_proxy.this.arn
 }
 
-output "proxy_endpoint" {
+output "rds_proxy_endpoint" {
   value = aws_db_proxy.this.endpoint
 }
 
