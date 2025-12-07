@@ -19,7 +19,7 @@ jobs:
               uses: aws-actions/configure-aws-credentials@v5.1.0
               with:
                 aws-region: eu-central-1
-                role-to-assume: arn:aws:iam::299097238534:role/incident-logger-github-actions-terraform-infra-plan-role
+                role-to-assume: ${{ secrets.AWS_TERRAFORM_PLAN_ROLE_ARN }}
                 role-session-name: AWSTerraformSession
 
             - name: Terraform installation
