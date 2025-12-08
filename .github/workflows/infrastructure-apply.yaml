@@ -30,6 +30,8 @@ jobs:
             
             - name: Running terraform commands
               working-directory: infrastructure
+              env:
+                TF_VAR_alarm_email: ${{ secrets.ALARM_EMAIL }}
               run: |
                 terraform init
                 terraform fmt -recursive -check
