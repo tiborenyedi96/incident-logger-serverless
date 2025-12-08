@@ -310,6 +310,7 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
           "sns:SetTopicAttributes",
           "sns:ListTopics",
           "sns:ListSubscriptionsByTopic",
+          "sns:ListTagsForResource",
           "sns:TagResource",
           "sns:UntagResource"
         ],
