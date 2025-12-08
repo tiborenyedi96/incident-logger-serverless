@@ -14,6 +14,20 @@ I have built this project after passing the AWS Solutions Architect Associate ce
 ## Github Actions Lambda CI/CD Diagram:
 ![CI/CD diagram - Lambda](docs/cicd-lambda-diagram.png)
 
+## Cloudwatch dashboards:
+
+### Lambda cloudwatch dashboard:
+![Cloudwatch dashboard - Lambda](docs/lambda-dashboard.png)
+
+### RDS cloudwatch dashboard:
+![Cloudwatch dashboard - RDS](docs/rds-dashboard.png)
+
+### RDS Proxy cloudwatch dashboard:
+![Cloudwatch dashboard - RDS Proxy](docs/rds-proxy-dashboard.png)
+
+### API Gateway cloudwatch dashboard:
+![Cloudwatch dashboard - API Gateway](docs/apigw-dashboard.png)
+
 ## Application UI:
 
 ### Incident List View:
