@@ -94,23 +94,23 @@ module "monitoring" {
 
 //Egress SG rules
 locals {
-  project_sg_ids = [
-    module.lambda.lambda_security_group_id,
-    module.rds_proxy.rds_proxy_security_group_id,
-    module.rds.rds_sg_id
-  ]
+  project_sg_map = {
+    "lambda"    = module.lambda.lambda_security_group_id
+    "rds_proxy" = module.rds_proxy.rds_proxy_security_group_id
+    "rds"       = module.rds.rds_sg_id
+  }
 }
 
 resource "aws_security_group_rule" "egress_within_vpc" {
-  for_each = toset(local.project_sg_ids)
+  for_each = local.project_sg_map
 
   type              = "egress"
   from_port         = 0
   to_port           = 0
   protocol          = "all"
   cidr_blocks       = [module.vpc.cidr_block]
-  security_group_id = each.key
-  description       = "Allows egress traffic within VPC (${module.vpc.vpc_id})"
+  security_group_id = each.value
+  description       = "Allows egress traffic within VPC for ${each.key} (${module.vpc.vpc_id})"
 }
 
 //Ingress SG rules
