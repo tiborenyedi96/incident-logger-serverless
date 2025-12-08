@@ -1,0 +1,94 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "x": 8,
+            "y": 0,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "CPUUtilization", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 0,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "DatabaseConnections", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 16,
+            "y": 0,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "FreeableMemory", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 8,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "WriteThroughput", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 8,
+            "y": 8,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "ReadThroughput", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 16,
+            "y": 8,
+            "width": 8,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "ACUUtilization", "DBClusterIdentifier", "incident-logger-rds-cluster", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        }
+    ]
+}
