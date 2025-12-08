@@ -84,7 +84,8 @@ module "ecr" {
 }
 
 module "monitoring" {
-  source = "./modules/monitoring"
+  source      = "./modules/monitoring"
+  alarm_email = var.alarm_email
 }
 
 //Egress SG rules
