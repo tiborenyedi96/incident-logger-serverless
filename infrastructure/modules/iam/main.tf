@@ -225,7 +225,12 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
           "iam:Get*",
           "iam:List*",
           "iam:TagOpenIDConnectProvider",
-          "iam:TagPolicy"
+          "iam:UntagOpenIDConnectProvider",
+          "iam:TagPolicy",
+          "iam:UntagPolicy",
+          "iam:CreateOpenIDConnectProvider",
+          "iam:DeleteOpenIDConnectProvider",
+          "iam:UpdateOpenIDConnectProviderThumbprint"
         ],
         Resource : "*"
       },
