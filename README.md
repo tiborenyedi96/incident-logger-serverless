@@ -89,6 +89,5 @@ This project went through several iterations as I learned and optimized the arch
 **Solution:** Migrated Lambda functions to arm64 architecture and updated CI/CD pipelines to build arm64 container images.
 
 ## Future Improvements:
-- Creating cloudwatch alarms for key metrics
-- Constantly refactoring Terraform code, reducing repeated elements and hardcoded values and improving the reusability of my modules
+- Constantly refactoring Terraform code, reducing repeated elements and hardcoded values and improving the reusability of my code
 - Trying different experiments in AWS Fault Injection Service to see where my infrastructure has its limits and planning fixes to address them
