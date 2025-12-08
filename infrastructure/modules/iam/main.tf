@@ -107,7 +107,9 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
           "ecr:BatchCheckLayerAvailability",
           "cloudwatch:Describe*",
           "cloudwatch:Get*",
-          "cloudwatch:List*"
+          "cloudwatch:List*",
+          "sns:Get*",
+          "sns:List*"
         ],
         Resource : "*"
       }
@@ -293,6 +295,23 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
           "cloudwatch:TagResource",
           "cloudwatch:UntagResource",
           "cloudwatch:ListTagsForResource"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "SNSCRUD",
+        Effect : "Allow",
+        Action : [
+          "sns:CreateTopic",
+          "sns:DeleteTopic",
+          "sns:Subscribe",
+          "sns:Unsubscribe",
+          "sns:GetTopicAttributes",
+          "sns:SetTopicAttributes",
+          "sns:ListTopics",
+          "sns:ListSubscriptionsByTopic",
+          "sns:TagResource",
+          "sns:UntagResource"
         ],
         Resource : "*"
       }
