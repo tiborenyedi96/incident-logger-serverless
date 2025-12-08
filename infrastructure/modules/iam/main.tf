@@ -104,7 +104,10 @@ resource "aws_iam_policy" "github_actions_terraform_infra_plan_policy" {
           "ecr:Get*",
           "ecr:List*",
           "ecr:BatchGetImage",
-          "ecr:BatchCheckLayerAvailability"
+          "ecr:BatchCheckLayerAvailability",
+          "cloudwatch:Describe*",
+          "cloudwatch:Get*",
+          "cloudwatch:List*"
         ],
         Resource : "*"
       }
@@ -269,6 +272,27 @@ resource "aws_iam_policy" "github_actions_terraform_infra_apply_policy" {
         Effect : "Allow",
         Action : [
           "ecr:*"
+        ],
+        Resource : "*"
+      },
+      {
+        Sid : "CloudWatchCRUD",
+        Effect : "Allow",
+        Action : [
+          "cloudwatch:PutMetricAlarm",
+          "cloudwatch:DeleteAlarms",
+          "cloudwatch:DescribeAlarms",
+          "cloudwatch:PutDashboard",
+          "cloudwatch:GetDashboard",
+          "cloudwatch:DeleteDashboards",
+          "cloudwatch:ListDashboards",
+          "cloudwatch:PutMetricData",
+          "cloudwatch:GetMetricData",
+          "cloudwatch:GetMetricStatistics",
+          "cloudwatch:ListMetrics",
+          "cloudwatch:TagResource",
+          "cloudwatch:UntagResource",
+          "cloudwatch:ListTagsForResource"
         ],
         Resource : "*"
       }
