@@ -1,3 +1,18 @@
+# SNS topic for alarm notifications
+
+resource "aws_sns_topic" "alarm_notifications" {
+  name         = "cloudwatch-alarm-notifications"
+  display_name = "Cloudwatch Alarm Notifications"
+}
+
+resource "aws_sns_topic_subscription" "alarm_notifications_subscription" {
+  topic_arn = aws_sns_topic.alarm_notifications.arn
+  protocol  = "email"
+  endpoint  = "dummy@dummy.com"
+}
+
+# cloudwatch dashboards
+
 resource "aws_cloudwatch_dashboard" "lambda_dashboard" {
   dashboard_name = "incident-logger-lambda-dashboard"
   dashboard_body = templatefile("${path.module}/lambda-dashboard.tpl.json", {})
