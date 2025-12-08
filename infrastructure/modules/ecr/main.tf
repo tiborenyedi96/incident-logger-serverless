@@ -1,6 +1,7 @@
 resource "aws_ecr_repository" "get_repository" {
   name                 = "${var.name}-lambda-get-image-repository"
   image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
+  force_delete         = true
 
   image_tag_mutability_exclusion_filter {
     filter      = "latest*"
@@ -15,6 +16,7 @@ resource "aws_ecr_repository" "get_repository" {
 resource "aws_ecr_repository" "post_repository" {
   name                 = "${var.name}-lambda-post-image-repository"
   image_tag_mutability = "IMMUTABLE_WITH_EXCLUSION"
+  force_delete         = true
 
   image_tag_mutability_exclusion_filter {
     filter      = "latest*"
