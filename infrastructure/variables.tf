@@ -1,4 +1,4 @@
 variable "alarm_email" {
-  type        = string
-  sensitive   = true
+  type      = string
+  sensitive = true
 }
