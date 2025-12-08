@@ -7,3 +7,8 @@ resource "aws_cloudwatch_dashboard" "rds_proxy_dashboard" {
   dashboard_name = "incident-logger-rds-proxy-dashboard"
   dashboard_body = templatefile("${path.module}/rdsproxy-dashboard.tpl.json", {})
 }
+
+resource "aws_cloudwatch_dashboard" "rds_dashboard" {
+  dashboard_name = "incident-logger-rds-dashboard"
+  dashboard_body = templatefile("${path.module}/rds-dashboard.tpl.json", {})
+}
