@@ -4,17 +4,17 @@ variable "alarm_email" {
 }
 
 variable "lambda_get_function_name" {
-  type        = string
+  type = string
 }
 
 variable "lambda_post_function_name" {
-  type        = string
+  type = string
 }
 
 variable "api_gateway_id" {
-  type        = string
+  type = string
 }
 
 variable "rds_cluster_identifier" {
-  type        = string
+  type = string
 }
