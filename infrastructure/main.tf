@@ -84,9 +84,12 @@ module "ecr" {
 }
 
 module "monitoring" {
-  source           = "./modules/monitoring"
-  alarm_email      = var.alarm_email
-  api_gateway_id   = module.api_gateway.api_gateway_id
+  source                    = "./modules/monitoring"
+  alarm_email               = var.alarm_email
+  api_gateway_id            = module.api_gateway.api_gateway_id
+  lambda_get_function_name  = "incident-logger-lambda-get-incidents"
+  lambda_post_function_name = "incident-logger-lambda-post-incident"
+  rds_cluster_identifier    = "incident-logger-rds-cluster"
 }
 
 //Egress SG rules
