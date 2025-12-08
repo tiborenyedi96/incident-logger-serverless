@@ -84,8 +84,9 @@ module "ecr" {
 }
 
 module "monitoring" {
-  source      = "./modules/monitoring"
-  alarm_email = var.alarm_email
+  source           = "./modules/monitoring"
+  alarm_email      = var.alarm_email
+  api_gateway_id   = module.api_gateway.api_gateway_id
 }
 
 //Egress SG rules
