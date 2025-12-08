@@ -83,6 +83,10 @@ module "ecr" {
   lambda_role_arn = module.lambda.lambda_role_arn
 }
 
+module "monitoring" {
+  source = "./modules/monitoring"
+}
+
 //Egress SG rules
 locals {
   project_sg_ids = [
