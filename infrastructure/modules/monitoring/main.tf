@@ -8,21 +8,21 @@ resource "aws_cloudwatch_dashboard" "main" {
         x      = 0
         y      = 0
         width  = 12
-        height = 6
+        height = 12
 
         properties = {
           metrics = [
             [
-              "AWS/EC2",
-              "CPUUtilization",
-              "InstanceId",
-              "i-012345"
+              "AWS/Lambda",
+              "Errors",
+              "FunctionName",
+              "incident-logger-lambda-get-incidents"
             ]
           ]
           period = 300
           stat   = "Average"
           region = "eu-central-1"
-          title  = "EC2 Instance CPU"
+          title  = "Lambda GET errors"
         }
       },
       {
