@@ -1,0 +1,94 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 7,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "DatabaseConnections", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 7,
+            "properties": {
+                "view": "singleValue",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "MaxDatabaseConnectionsAllowed", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 0,
+            "width": 6,
+            "height": 7,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "QueryDatabaseResponseLatency", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 18,
+            "y": 0,
+            "width": 6,
+            "height": 7,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "DatabaseConnectionsSetupSucceeded", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 7,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "DatabaseConnectionRequests", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 7,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "DatabaseConnectionsWithTLS", "Target", "db:incident-logger-rds-cluster-instance", "ProxyName", "incident-logger-rds-proxy", "TargetGroup", "default", { "period": 60 } ]
+                ],
+                "region": "eu-central-1"
+            }
+        }
+    ]
+}
