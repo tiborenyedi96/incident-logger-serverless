@@ -8,7 +8,7 @@ resource "aws_sns_topic" "alarm_notifications" {
 resource "aws_sns_topic_subscription" "alarm_notifications_subscription" {
   topic_arn = aws_sns_topic.alarm_notifications.arn
   protocol  = "email"
-  endpoint  = "dummy@dummy.com"
+  endpoint  = var.alarm_email
 }
 
 # cloudwatch dashboards
