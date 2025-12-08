@@ -12,3 +12,8 @@ resource "aws_cloudwatch_dashboard" "rds_dashboard" {
   dashboard_name = "incident-logger-rds-dashboard"
   dashboard_body = templatefile("${path.module}/rds-dashboard.tpl.json", {})
 }
+
+resource "aws_cloudwatch_dashboard" "apigw_dashboard" {
+  dashboard_name = "incident-logger-apigw-dashboard"
+  dashboard_body = templatefile("${path.module}/apigw-dashboard.tpl.json", {})
+}
