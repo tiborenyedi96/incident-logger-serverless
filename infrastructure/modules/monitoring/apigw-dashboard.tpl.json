@@ -1,0 +1,66 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 8,
+            "width": 12,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ApiGateway", "4xx", "Resource", "/incidents", "Stage", "$default", "Method", "POST", "ApiId", "2i9f5cz6of" ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 8,
+            "width": 12,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ApiGateway", "5xx", "Resource", "/incidents", "Stage", "$default", "Method", "GET", "ApiId", "2i9f5cz6of" ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ApiGateway", "Count", "Resource", "/incidents", "Stage", "$default", "Method", "GET", "ApiId", "2i9f5cz6of" ],
+                    [ "...", "POST", ".", "." ]
+                ],
+                "region": "eu-central-1"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 0,
+            "width": 12,
+            "height": 8,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/ApiGateway", "IntegrationLatency", "Resource", "/incidents", "Stage", "$default", "Method", "GET", "ApiId", "2i9f5cz6of" ],
+                    [ "...", "POST", ".", "." ]
+                ],
+                "region": "eu-central-1"
+            }
+        }
+    ]
+}
