@@ -24,17 +24,6 @@ resource "aws_cloudwatch_dashboard" "main" {
           region = "eu-central-1"
           title  = "Lambda GET errors"
         }
-      },
-      {
-        type   = "text"
-        x      = 0
-        y      = 7
-        width  = 3
-        height = 3
-
-        properties = {
-          markdown = "Hello world"
-        }
       }
     ]
   })
