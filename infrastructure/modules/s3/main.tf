@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "this" {
   bucket        = "${var.name}-frontend"
-  force_destroy = false
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "s3_frontend_block_public_access" {
